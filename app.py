@@ -7,22 +7,27 @@ st.title("📊 Credit Risk Dashboard")
 
 if st.button("Run Model 🚀"):
 
-    # run model
-    subprocess.run(["python3", "src/credit_model.py"])
+    # Run model from correct folder
+    subprocess.run(
+        ["python3", "src/credit_model.py"],
+        cwd=os.getcwd()
+    )
 
     st.success("Model executed!")
 
-    # check outputs
+    # Debug (important)
     if os.path.exists("outputs"):
         st.write("Files:", os.listdir("outputs"))
+    else:
+        st.error("Outputs folder not found")
 
-    # show image
+    # Show image
     if os.path.exists("outputs/credit_risk_dashboard.png"):
         st.image("outputs/credit_risk_dashboard.png")
     else:
         st.error("Dashboard not found")
 
-    # download excel
+    # Download Excel
     if os.path.exists("outputs/credit_portfolio_report.xlsx"):
         with open("outputs/credit_portfolio_report.xlsx", "rb") as f:
             st.download_button("Download Excel", f)
